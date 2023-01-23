@@ -73,6 +73,7 @@ install_version() {
     cp -r "$ASDF_DOWNLOAD_PATH/${tool_cmd}-${version}" "$install_path/$tool_cmd"
 
     test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
+    test -L "$install_path/sls" || ln -s "$install_path/$tool_cmd" "$install_path/sls"
 
     echo "$TOOL_NAME $version installation was successful!"
   ) || (
