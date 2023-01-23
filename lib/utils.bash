@@ -14,7 +14,7 @@ fail() {
 get_os() {
   os=$(uname -s)
   case $os in
-  Darwin) os="darwin" ;;
+  Darwin) os="macos" ;;
   Linux) os="linux" ;;
   *) fail "The os (${os}) is not supported by this installation script." ;;
   esac
@@ -73,6 +73,7 @@ install_version() {
     cp -r "$ASDF_DOWNLOAD_PATH/${tool_cmd}-${version}" "$install_path/$tool_cmd"
 
     test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
+    # also create "sls" alias for the "serverless" binary if it doesn't exist
     test -L "$install_path/sls" || ln -s "$install_path/$tool_cmd" "$install_path/sls"
 
     echo "$TOOL_NAME $version installation was successful!"
